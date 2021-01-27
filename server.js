@@ -1,17 +1,19 @@
 //Set up express
 let express = require("express");
 let app = express();
-let path = require("path");
-
-//Serve html files
-app.use(express.static('static'));
 
 //Connect to mongodb
 const MongoClient = require('mongodb').MongoClient;
-//Connecting to database
+//Connect to database
 let db;
 MongoClient.connect('mongodb+srv://me:mongo@cluster0.pkpaw.mongodb.net/test', (err, client) => {
-    db = client.db('store');
+    db = client.db('school');
 });
+
+//Serve images
+app.use('/images', express.static(__dirname + '/static/coursework'))
+
+
+
 
 app.listen(3000);
