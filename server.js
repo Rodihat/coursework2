@@ -13,7 +13,9 @@ MongoClient.connect('mongodb+srv://me:mongo@cluster0.pkpaw.mongodb.net/test', (e
 //Serve images
 app.use('/images', express.static(__dirname + '/static/coursework'))
 
-
-
-
-app.listen(3000);
+//Logger middleware
+app.use((req, res, next) => {
+    console.log("Request IP -", req.ip);
+    console.log("Request performed - ", req.method)
+    next();
+})
