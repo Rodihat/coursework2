@@ -11,7 +11,12 @@ MongoClient.connect('mongodb+srv://me:mongo@cluster0.pkpaw.mongodb.net/test', (e
 });
 
 //Serve images
-app.use('/images', express.static(__dirname + '/static/coursework'))
+app.use('/images', express.static(__dirname + '/static/coursework'), (req, res, err) =>{
+    if(err){
+        res.send("Cannot find image")//When doing front end, make this an alert
+    }
+})
+
 
 //Logger middleware
 app.use((req, res, next) => {
@@ -19,3 +24,6 @@ app.use((req, res, next) => {
     console.log("Request performed - ", req.method)
     next();
 })
+app.use(express.json());
+
+app.listen(3000);
