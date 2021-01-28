@@ -1,9 +1,10 @@
 //Set up express
 let express = require("express");
 let app = express();
+let url = require("url");
 
 //Connect to mongodb
-const MongoClient = require('mongodb').MongoClient;
+const {MongoClient , ObjectID } = require('mongodb');
 //Connect to database
 let db;
 MongoClient.connect('mongodb+srv://me:mongo@cluster0.pkpaw.mongodb.net/test', (err, client) => {
@@ -17,8 +18,6 @@ app.use('/images', express.static(__dirname + '/static/coursework'), (req, res, 
     }
 })
 
-
-
 //Logger middleware
 app.use((req, res, next) => {
     console.log("Request IP -", req.ip);
@@ -27,9 +26,8 @@ app.use((req, res, next) => {
 })
 app.use(express.json());
 
-app.get('/', (req, res, next) => {
-    res.send('Homepage');
-});
+//Serving static files
+app.use(express.static('static'))
 
 app.param('collectionName', (req, res, next, collectionName) => {
     req.collection = db.collection(collectionName)
@@ -60,5 +58,4 @@ app.post('/collection/:collectionName', (req, res, next) => {
     })
 });
 
-
-app.listen(3000);
+app.listen(3020); //Changed port for testing purposes
