@@ -58,4 +58,33 @@ app.post('/collection/:collectionName', (req, res, next) => {
     })
 });
 
-app.listen(3020); //Changed port for testing purposes
+//Put function, will do after fetching data
+/*function update(req, res){
+    let urlObj = url.parse(req.url, true);
+    let pathArray = urlObj.pathname.split("/")
+    let pathEnd = pathArray[pathArray - 1]
+    
+    //Get specific field information ID number from order table
+    //Find and match the ID number to a field in lessons table
+    //Get the objectID of that document
+    //Update spaces of the document using the objectid
+}*/
+
+//To update items
+//Include the JSON id
+/*app.put('/collection/:collectionName/:id', (req, res, next) => {
+    req.collection.update(
+        { _id: new ObjectID(req.params.id) },
+        { $set: req.body }, //To update object
+        { safe: true, multi: false }, //Wait for execution before running callback function and to only process first item
+        (e, result) => {
+            if (e) return next(e)
+            //Will be 1 when JSON object is found, 0 if not.
+            //If it's 1, lets user know its been done or if fail, shows error
+            res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
+        })
+});*/
+
+const port = process.env.PORT || 3000
+app.listen(port)
+console.log("listening on port" ,port)
