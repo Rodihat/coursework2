@@ -20,8 +20,10 @@ app.use('/images', express.static(__dirname + '/static/coursework'), (req, res, 
 app.get('/',(req, res, next) =>{
     console.log("Request IP -", req.ip);
     console.log("Request performed - ", req.method)
+    console.log("test again")
     next();
 })
+console.log("test");
 //Logger middleware
 
 app.use(express.json());
