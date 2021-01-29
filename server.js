@@ -17,13 +17,13 @@ app.use('/images', express.static(__dirname + '/static/coursework'), (req, res, 
         res.send("Cannot find image")//When doing front end, make this an alert
     }
 })
-
-//Logger middleware
-app.use((req, res, next) => {
+app.get('/',(req, res, next) =>{
     console.log("Request IP -", req.ip);
     console.log("Request performed - ", req.method)
     next();
 })
+//Logger middleware
+
 app.use(express.json());
 
 //Serving static files
