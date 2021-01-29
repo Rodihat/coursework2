@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="container">
+        <nav>
+            <span>After School Lesson Booking</span>
+            <!--Content in navigation bar-->
+            <ul>
+                <li>
+                    <button style="width: 200px;">Cart</button>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="lessons">
+            <p class="header">Lessons</p>
+            <div v-for="(lesson, index) in lessons" id="lessonss">
+                <!--<img v-bind:src="lesson.image" class="pic">-->
+                <span class="lessonT">{{ lessons.topic }}</span>
+                <span class="location">Location: {{ lessons.location }}</span>
+                <span class="price">Price: £{{lessons.price}}</span>
+                <span class="spaces">Availability:
+                    <span v-text="lessons.spaces"></span>
+                </span>
+                <div id="b_holder" @click="add(lesson)">
+                    <span v-if="lesson.spaces &gt; zeroo()"> <button>Add to cart</button> </span>
+                    <span v-else><button hidden></button></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            <!--Navigation bar-->
+            <div id="nav">
+                <nav>
+                    <span>Shopping Cart</span>
+                    <!--Content in navigation bar-->
+                    <ul>
+                        <li>
+                            <button @click='showCheckout()' style="width: 200px;" v-if="isCart">
+                                {{itemCount}}
+                                <span class="fas fa-cart-plus"></span> Go Back
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div>
+                <p class="cart_show">Items in cart</p>
+                <div class="cart">
+                    <div class="item">
+                        <div v-for="(obj, index) in cart" id="lessonss">
+                            <img v-bind:src="obj.image" class="pic">
+                            <span class="lessonT">{{ lessons.title }}</span>
+                            <span class="location">Location: {{ lessons.location }}</span>
+                            <span class="price">Price: £{{lessons.price}}</span>
+                            <span class="spaces">Availability:
+                                <span v-text="lessons.spaces"></span>
+                            </span>
+                            <div id="b_holder">
+                                <span><button @click="remove(obj)">Remove</button> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout">
+                    <h1>Your Details</h1>
+                    <p style="display: inline; margin-left: px">Name: </p><input @keydown='nameFill()' id="name"
+                        oninput="this.value = this.value.replace(/[^A-Z||a-z]/g, '').replace(/(\..*)\./g, '$1');"
+                        type="text" style="margin-left: 20px" v-model="order.name">
+
+                    <br>
+                    <br>
+
+                    <p style="display: inline">Phone Number: </p><input id="number" type="text" @keydown='nameFill()'
+                        style="margin-left: 6px"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        v-model="order.number">
+
+                    <div id="buttonn">
+                        <button id="checkoutBtn" @click="ordered()" hidden></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="vue.js"></script>
+
+</body>
+
+</html>
