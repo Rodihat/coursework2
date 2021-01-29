@@ -29,6 +29,15 @@ app.use(express.json());
 //Serving static files
 app.use(express.static('static'))
 
+app.use(function(req, res, next) {
+    // allow diff IP address
+    res.header("Access-Control-Allow-Origin","*");
+    // allow diff header fields
+    res.header("Access-Control-Allow-Headers","*");
+    next();
+});
+
+
 app.param('collectionName', (req, res, next, collectionName) => {
     req.collection = db.collection(collectionName)
     return next()
