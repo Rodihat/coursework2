@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>After School Tutoring</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
@@ -34,7 +34,7 @@
                         <p class="header">Lessons</p>
                         <div v-for="(lesson, index) in lessons" id="lessonss">
                             <img v-bind:src="lesson.image" class="pic">
-                            <span class="lessonT">{{ lesson.title }}</span>
+                            <span class="lessonT">{{ lesson.topic }}</span>
                             <span class="location">Location: {{ lesson.location }}</span>
                             <span class="price">Price: £{{lesson.price}}</span>
                             <span class="spaces">Availability:
@@ -94,7 +94,7 @@
                             <div id="b_holder">
                                 <span><button @click="remove(obj)">Remove</button> </span>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
                 <div class="checkout">
@@ -119,197 +119,7 @@
         </div>
     </div>
 
-    <script>
-        //Set up vue app
-        let app = new Vue({
-            el: '#container',
-            data: {
-                lessons: [{
-                    id: 1,
-                    title: "Math",
-                    location: "London",
-                    spaces: 5,
-                    price: 100,
-                    image: "coursework/math.png"
-                },
-                {
-                    id: 2,
-                    title: "English",
-                    location: "Oxford",
-                    spaces: 6,
-                    price: 70,
-                    image: "coursework/english.png"
-                }, {
-                    id: 3,
-                    title: "Music",
-                    location: "Liverpool",
-                    spaces: 8,
-                    price: 90,
-                    image: "coursework/music.png"
-                }, {
-                    id: 4,
-                    title: "Math",
-                    location: "Oxford",
-                    spaces: 12,
-                    price: 105,
-                    image: "coursework/math.png"
-                }, {
-                    id: 5,
-                    title: "Theatre",
-                    location: "Yorkshire",
-                    spaces: 6,
-                    price: 89,
-                    image: "coursework/theatre.png"
-                }, {
-                    id: 6,
-                    title: "Chemistry",
-                    location: "Birmingham",
-                    spaces: 11,
-                    price: 79,
-                    image: "coursework/chem.png"
-                }, {
-                    id: 7,
-                    title: "Physics",
-                    location: "London",
-                    spaces: 15,
-                    price: 150,
-                    image: "coursework/physics.png"
-                }, {
-                    id: 8,
-                    title: "Economics",
-                    location: "London",
-                    spaces: 9,
-                    price: 160,
-                    image: "coursework/economics.png"
-                }, {
-                    id: 9,
-                    title: "Business Studies",
-                    location: "London",
-                    spaces: 7,
-                    price: 75,
-                    image: "coursework/business.png"
-                }, {
-                    id: 10,
-                    title: "Art",
-                    location: "Kent",
-                    spaces: 11,
-                    price: 71,
-                    image: "coursework/art.png"
-                },
-
-                ],
-
-                cart: [],
-
-                showProducts: true,
-
-                info: "",
-
-                order: {
-                },
-
-                btnShow: false,
-            },
-            methods: {
-                //Method to add to cart
-                add: function (lesson) {
-                    this.cart.push(lesson);
-                    lesson.spaces--;
-
-                },
-
-                showCheckout() {
-                    this.showProducts = this.showProducts ? false : true;
-                },
-                ordered() {
-                    alert("Order Submitted !");
-                    this.cart = [];
-                },
-                nameFill() {
-                    let btn = document.getElementById("checkoutBtn");
-                    let name = document.getElementById("name");
-                    let number = document.getElementById("number");
-
-                    if (name.value == '' || number.value == '') {
-                        btn.style.visibility = 'hidden';
-                    } else {
-                        document.getElementById("buttonn").innerHTML = `<button id="checkoutBtn" style="margin-top: 30px; background-color: darkblue; border-radius: 0" @click="ordered()"> Checkout</button>`
-                    }
-                },
-                canAdd(lesson) {
-                    return lesson.spaces > this.cartCount(product.id);
-                },
-
-                zeroo() {
-                    return 0;
-                },
-                remove(lesson) {
-                    let index = this.cart.indexOf(lesson);
-                    if (index > -1) {
-                        this.cart.splice(index, 1);
-                        lesson.spaces++;
-                    }
-                },
-                sortPrice() {
-                    function compare(a, b) {
-                        if (a.price > b.price) return 1;
-                        if (a.price < b.price) return -1;
-                        return 0;
-                    }
-                    return this.lessons.sort(compare);
-                },
-                sortTitle() {
-                    function compare(a, b) {
-                        if (a.title > b.title) return 1;
-                        if (a.title < b.title) return -1;
-                        return 0;
-                    }
-                    return this.lessons.sort(compare);
-                },
-                sortLocation() {
-                    function compare(a, b) {
-                        if (a.location > b.location) return 1;
-                        if (a.location < b.location) return -1;
-                        return 0;
-                    }
-                    return this.lessons.sort(compare);
-                },
-                sortSpaces() {
-                    function compare(a, b) {
-                        if (a.spaces > b.spaces) return 1;
-                        if (a.spaces < b.spaces) return -1;
-                        return 0;
-                    }
-                    return this.lessons.sort(compare);
-                },
-                ascending() {
-                    function compare(a, b) {
-                        if (a.lesson > b.lesson) return 1;
-                        if (a.lesson < b.lesson) return -1;
-                        return 0;
-                    }
-                    return this.lessons.sort(compare);
-                },
-                descending() {
-                    function compare(a, b) {
-                        if (a.lesson < b.lesson) return 1;
-                        if (a.lesson > b.lesson) return -1;
-                        return 0;
-                    }
-                    return this.lessons.sort(compare);
-                },
-            },
-            computed: {
-                itemCount() {
-                    return this.cart.length || '';
-                },
-                isCart() {
-                    if (this.cart.length > 0)
-                        return this.cart.length;
-                }
-            },
-        })        
-    </script>
+    <script src="vue.js"></script>
 </body>
 
 </html>
