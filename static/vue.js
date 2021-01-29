@@ -2,7 +2,7 @@
 let app = new Vue({
     el: '#container',
     data: {
-        lessons: [],
+        lessons: {},
 
         cart: [],
 
@@ -15,6 +15,17 @@ let app = new Vue({
 
         btnShow: false,
     },
+    created: function(){
+        fetch('https://tester3145.herokuapp.com/collection/lessons').then(
+            function(response){
+                response.json().then(
+                    function(json){
+                        app.lessons = json
+                    }
+                )
+            }
+        )
+    },
     methods: {
         //Method to add to cart
         add: function (lesson) {
@@ -22,19 +33,6 @@ let app = new Vue({
             lesson.spaces--;
 
         },
-
-        getLessons: function(){
-            fetch('http://localhost:3000/collection/lessons').then(
-                function(response){
-                    response.json().then(
-                        function(json){
-                            app.lessons = json
-                        }
-                    )
-                }
-            )
-        },
-        
         showCheckout() {
             this.showProducts = this.showProducts ? false : true;
         },
