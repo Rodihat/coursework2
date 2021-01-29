@@ -13,20 +13,9 @@
 <body>
     <div id="container">
         <!--Navigation bar-->
-        <div id="nav" v-if='showProducts'>
+        <div id="nav">
             <nav>
                 <span>After School Lesson Booking</span>
-                <!--Content in navigation bar-->
-                <ul>
-                    <li>
-                        <button @click='showCheckout()' style="width: 200px;" v-if="isCart">
-                            {{itemCount}}
-                            <span class="fas fa-cart-plus"></span> Checkout
-                        </button>
-
-                        <button hidden v-else></button>
-                    </li>
-                </ul>
             </nav>
             <div>
                 <div>
@@ -35,13 +24,14 @@
                         <div v-for="(lesson, index) in lessons" id="lessonss">
                             <img v-bind:src="lesson.image" class="pic">
                             <span class="lessonT">{{ lesson.topic }}</span>
+                            <span class="idd">ID: {{ lesson._id }}</span>
                             <span class="location">Location: {{ lesson.location }}</span>
                             <span class="price">Price: £{{lesson.price}}</span>
                             <span class="spaces">Availability:
                                 <span v-text="lesson.spaces"></span>
                             </span>
-                            <div id="b_holder" @click="add(lesson)">
-                                <span v-if="lesson.spaces &gt; zeroo()"> <button>Add to cart</button> </span>
+                            <div id="b_holder">
+                                <span v-if="lesson.spaces &gt; zeroo()"> <a href="#check"><button>Purchase</button></a></span>
                                 <span v-else><button hidden></button></span>
                             </div>
                         </div>
@@ -63,11 +53,10 @@
             </div>
         </div>
 
-        <div v-else>
+        <div>
             <!--Navigation bar-->
             <div id="nav">
                 <nav>
-                    <span>Shopping Cart</span>
                     <!--Content in navigation bar-->
                     <ul>
                         <li>
@@ -80,42 +69,17 @@
                 </nav>
             </div>
             <div>
-                <p class="cart_show">Items in cart</p>
-                <div class="cart">
-                    <div class="item">
-                        <div v-for="(obj, index) in cart" id="lessonss">
-                            <img v-bind:src="obj.image" class="pic">
-                            <span class="lessonT">{{ obj.title }}</span>
-                            <span class="location">Location: {{ obj.location }}</span>
-                            <span class="price">Price: £{{obj.price}}</span>
-                            <span class="spaces">Availability:
-                                <span v-text="obj.spaces"></span>
-                            </span>
-                            <div id="b_holder">
-                                <span><button @click="remove(obj)">Remove</button> </span>
-                            </div>
-                        </div>                        
-                    </div>
-                </div>
-                <div class="checkout">
+                <div id="check" class="checkout">
                     <h1>Your Details</h1>
-                    <p style="display: inline; margin-left: px">Name: </p><input @keydown='nameFill()' id="name"
-                        oninput="this.value = this.value.replace(/[^A-Z||a-z]/g, '').replace(/(\..*)\./g, '$1');"
-                        type="text" style="margin-left: 20px" v-model="order.name">
-
-                    <br>
-                    <br>
-
-                    <p style="display: inline">Phone Number: </p><input id="number" type="text" @keydown='nameFill()'
-                        style="margin-left: 6px"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                        v-model="order.number">
-
-                    <div id="buttonn">
-                        <button id="checkoutBtn" hidden></button>
-                    </div>
+                    <p>Name: <input type="text" id="name" style="margin-left: 20px"></p>
+                    <p>Number: <input type="text" id="number" style="margin-left: 6px"></p>
+                    <b>Copy and paste the lesson ID here</b>
+                    <p>Lesson ID: <input type="text" id="lessonID" style="margin-left: 6px"></p>
+                    <p>Spaces: <input type="text" id="spaces" style="margin-left: 6px"></p>
+                    
+                    <button v-on:click="myFunction()">Submit</button>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 
