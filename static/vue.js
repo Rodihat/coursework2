@@ -35,21 +35,11 @@ let app = new Vue({
         },
         showCheckout() {
             this.showProducts = this.showProducts ? false : true;
+            this.add();
         },
         ordered(){
             alert("Order Submitted !");
             this.cart = [];
-        },       
-        nameFill() {
-            let btn = document.getElementById("checkoutBtn");
-            let name = document.getElementById("name");
-            let number = document.getElementById("number");
-
-            if (name.value == '' || number.value == '') {
-                btn.style.visibility = 'hidden';
-            } else {
-                document.getElementById("buttonn").innerHTML = `<button id="checkoutBtn" style="margin-top: 30px; background-color: darkblue; border-radius: 0" @click="ordered()"> Checkout</button>`
-            }
         },
         canAdd(lesson) {
             return lesson.spaces > this.cartCount(product.id);
@@ -113,6 +103,25 @@ let app = new Vue({
             }
             return this.lessons.sort(compare);
         },
+        myFunction() {
+            let nam = document.getElementById("name").value;
+            let num = document.getElementById("number").value;
+            let idd = document.getElementById("lessonID").value;
+            let space = document.getElementById("spaces").value;
+            const newProduct = {name : nam, number : num, lesson_ID : idd, spaces : space};
+            fetch('https://tester3145.herokuapp.com/collection/orders', {
+              method: 'POST', 
+              headers: {
+              'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newProduct),
+              })
+              .then(response => response.json())
+              .then(responseJSON => {
+              console.log('Success:', responseJSON);
+              alert("Order added!")
+              });
+          }
     },
     computed: {
         itemCount() {
