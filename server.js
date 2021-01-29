@@ -17,10 +17,10 @@ app.use('/images', express.static(__dirname + '/static/coursework'), (req, res, 
         res.send("Cannot find image")//When doing front end, make this an alert
     }
 })
-app.get('/',(req, res, next) =>{
+app.use((req, res, next) =>{
     console.log("Request IP -", req.ip);
     console.log("Request performed - ", req.method)
-    console.log("test again")
+    console.log("Path - ", req.path)
     next();
 })
 console.log("test");
