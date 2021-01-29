@@ -1,3 +1,8 @@
+const { response } = require("express");
+
+let nam = document.getElementById("name");
+let number = document.getElementById("number");
+
 //Set up vue app
 let app = new Vue({
     el: '#container',
@@ -24,7 +29,19 @@ let app = new Vue({
                     }
                 )
             }
-        )
+        ),
+        function postt(){
+            const order = {name: nam.value, number: number.value}
+            fetch('https://tester3145.herokuapp.com/collection/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(order)
+            }).then(response => response.json()).then(responseJSON => {
+                console.log('Success:', responseJSON);
+            })
+        }
     },
     methods: {
         //Method to add to cart
@@ -113,9 +130,6 @@ let app = new Vue({
             }
             return this.lessons.sort(compare);
         },
-        beforeMount(){
-            this.getLessons()
-        }
     },
     computed: {
         itemCount() {
