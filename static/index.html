@@ -28,7 +28,7 @@
                             <span class="location">Location: {{ lesson.location }}</span>
                             <span class="price">Price: £{{lesson.price}}</span>
                             <span class="spaces">Availability:
-                                <span v-text="lesson.spaces"></span>
+                                <span v-text="lesson.spaces" id="spacee"></span>
                             </span>
                             <div id="b_holder">
                                 <span v-if="lesson.spaces &gt; zeroo()"> <a href="#check"><button>Purchase</button></a></span>
