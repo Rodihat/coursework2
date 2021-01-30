@@ -1,3 +1,4 @@
+let space;
 //Set up vue app
 let app = new Vue({
     el: '#container',
@@ -103,11 +104,12 @@ let app = new Vue({
             }
             return this.lessons.sort(compare);
         },
+        //To order
         myFunction() {
             let nam = document.getElementById("name").value;
             let num = document.getElementById("number").value;
             let idd = document.getElementById("lessonID").value;
-            let space = document.getElementById("spaces").value;
+            space = document.getElementById("spaces").value;
             const newProduct = {name : nam, number : num, lesson_ID : idd, spaces : space};
             fetch('https://tester3145.herokuapp.com/collection/orders', {
               method: 'POST', 
@@ -121,7 +123,26 @@ let app = new Vue({
               console.log('Success:', responseJSON);
               alert("Order added!")
               });
-          }
+              this.updatee()
+          },
+          //To update the spaces
+        updatee(){
+            let spac = document.getElementById("spacee");
+            fetch('https://tester3145.herokuapp.com/collection/lessons/:id' , {
+                method: 'PUT',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify({
+                    "space":"space" - space
+                })
+            }).then(response => response.json())
+            .then(responseJSON => {
+                console.log('Successfully updated:', responseJSON);
+            })
+
+            spac.innerHTML = space;
+        }
     },
     computed: {
         itemCount() {
